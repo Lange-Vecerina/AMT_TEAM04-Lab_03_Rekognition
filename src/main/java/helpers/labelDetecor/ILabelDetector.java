@@ -1,4 +1,4 @@
-package Helpers.LabelDetecor;
+package helpers.labelDetecor;
 
 public interface ILabelDetector {
 }
