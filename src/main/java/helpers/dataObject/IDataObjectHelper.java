@@ -1,9 +1,12 @@
 package helpers.dataObject;
 
 public interface IDataObjectHelper {
-    boolean exists(String url);
-    void createObject(String url);
-    void createObject(String url, String path);
-    void removeObject(String url);
-    void downloadObject(String srcUrl, String destPath);
+    // CRUD operations
+    void createObject(String objectUrl, String filePath);
+    void downloadObject(String objectUrl, String destinationUri);
+    void updateObject(String objectUrl, String filePath);
+    void deleteObject(String objectUrl);
+
+    // Other operations
+    String generatePresignedUrl(String objectUrl);
 }
