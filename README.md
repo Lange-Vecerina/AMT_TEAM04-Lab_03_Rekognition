@@ -17,11 +17,21 @@ The API can be easily adapted to differnet cloud Services without impacting the 
 The following prerequisite are necessary to use the project.
 
 * Java 11 or bigger
+* Maven
 * AWS CLI
+* A S3 bucket and AWS credentials
+
 ## Adapt personal settings
 
-[WIP]
+To run the application with your own AWS credentials you need to add the following credentials as environnement path of 
+your machine :
 
+Variable : **AWS_ACCESS_KEY_ID** Value : **<your_aws_access_key>**
+
+Variable : **AWS_SECRET_KEY** Value : **<your_aws_secret_key>**
+
+Example how to set environment variable on windows :
+https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/creating-and-modifying-environment-variables-on-windows.html#GUID-DD6F9982-60D5-48F6-8270-A27EC53807D0
 ## Run the Project
 
 [WIP]
@@ -30,7 +40,7 @@ The following prerequisite are necessary to use the project.
 
 [WIP]
 
-For the tests we are using JUnit, for more details, please see the wiki.
+
 
 ## Backlog
 
