@@ -1,4 +1,4 @@
-import helpers.dataObject.AwsDataObjectHelperImpl;
+import helpers.data_object.AwsDataObjectHelperImpl;
 
 public class Main {
     public static void main(String[] args) {
