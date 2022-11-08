@@ -1,15 +1,31 @@
-import helpers.dataObject.AwsDataObjectHelperImpl;
+
+import client.AwsCloudClient;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        AwsDataObjectHelperImpl awsDataObjectHelper = new AwsDataObjectHelperImpl();
-        String path = "amt.team04.diduno.education/test/file";
+    public static void main(String[] args) throws IOException {
 
-        awsDataObjectHelper.createObject(path, "docs/testfiles/Hello.txt");
+        String bucketPath = "amt.team04.diduno.education/test/filebis";
+        String imageFromDiskPath = "D:\\cars.jpg";
+        AwsCloudClient client = AwsCloudClient.getInstance();
 
-        String link = awsDataObjectHelper.generatePresignedUrl(path);
+        System.out.println("=== Generating Link ===");
+        String link = client.dataObjectHelper().publish(bucketPath);
         System.out.println(link);
 
-        awsDataObjectHelper.downloadObject(path, "docs/testfiles/Hello2.txt");
+        client.dataObjectHelper().create(bucketPath, imageFromDiskPath);
+        System.out.println("=== Analyzing image ===");
+        client.labelDetector().analyze(imageFromDiskPath, 10, 80);
+        byte[] fileContent = FileUtils.readFileToByteArray(new File(imageFromDiskPath));
+
+        System.out.println("=== Analyzing byte array ===");
+        String response = client.labelDetector().analyze(fileContent, 3, 80);
+        byte[] byteArray = response.getBytes();
+
+        System.out.println("=== Storing result into S3 ===");
+        client.dataObjectHelper().create(bucketPath, byteArray);
+
     }
 }
