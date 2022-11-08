@@ -1,8 +1,9 @@
-package helpers.data_object;
+package org.heig.amt.team4.helpers.data_object;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +25,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
     /**
      * Constructor
      *
-     * @param s3Client - the s3 client
+     * @param s3Client - the s3 org.heig.amt.team4.client
      */
     public AwsDataObjectHelperImpl(AmazonS3 s3Client) {
         client = s3Client;

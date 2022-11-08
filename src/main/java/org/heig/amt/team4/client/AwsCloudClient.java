@@ -1,13 +1,13 @@
-package client;
+package org.heig.amt.team4.client;
 
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import helpers.data_object.AwsDataObjectHelperImpl;
-import helpers.data_object.IDataObjectHelper;
-import helpers.label_detecor.AwsLabelDetectorHelperImpl;
-import helpers.label_detecor.ILabelDetector;
+import org.heig.amt.team4.helpers.data_object.AwsDataObjectHelperImpl;
+import org.heig.amt.team4.helpers.data_object.IDataObjectHelper;
+import org.heig.amt.team4.helpers.label_detecor.AwsLabelDetectorHelperImpl;
+import org.heig.amt.team4.helpers.label_detecor.ILabelDetector;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.rekognition.RekognitionClient;
 
 
 /**
- * Singleton class for the AWS cloud client
+ * Singleton class for the AWS cloud org.heig.amt.team4.client
  *
  * @author Ivan Vecerina
  * @author Yanik Lange
@@ -33,7 +33,7 @@ public class AwsCloudClient implements ICloudClient {
      * Private constructor for the singleton class
      */
     private AwsCloudClient() {
-        
+
 
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new EnvironmentVariableCredentialsProvider())
@@ -50,7 +50,7 @@ public class AwsCloudClient implements ICloudClient {
     }
 
     /**
-     * Returns the singleton instance of the AWS cloud client
+     * Returns the singleton instance of the AWS cloud org.heig.amt.team4.client
      *
      * @return the singleton instance
      */

@@ -1,10 +1,10 @@
-package client;
+package org.heig.amt.team4.client;
 
-import helpers.data_object.IDataObjectHelper;
-import helpers.label_detecor.ILabelDetector;
+import org.heig.amt.team4.helpers.data_object.IDataObjectHelper;
+import org.heig.amt.team4.helpers.label_detecor.ILabelDetector;
 
 /**
- * Interface for the cloud client
+ * Interface for the cloud org.heig.amt.team4.client
  *
  * @author Ivan Vecerina
  * @author Yanik Lange

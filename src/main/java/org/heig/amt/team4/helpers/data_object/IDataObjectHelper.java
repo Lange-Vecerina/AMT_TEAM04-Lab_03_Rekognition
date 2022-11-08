@@ -1,7 +1,7 @@
-package helpers.data_object;
+package org.heig.amt.team4.helpers.data_object;
 
 /**
- * Interface for data object helpers.
+ * Interface for data object org.heig.amt.team4.helpers.
  *
  * @author Ivan Vecerina
  * @author Yanik Lange

@@ -1,6 +1,8 @@
+package org.heig.amt.team4;
 
-import client.AwsCloudClient;
 import org.apache.commons.io.FileUtils;
+import org.heig.amt.team4.client.AwsCloudClient;
+
 import java.io.File;
 import java.io.IOException;
 

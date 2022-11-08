@@ -1,8 +1,9 @@
-package helpers.label_detecor;
+package org.heig.amt.team4.helpers.label_detecor;
 
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +23,6 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
      * @param objectUri     the uri of the image
      * @param maxLabels     the maximum number of labels to return
      * @param minConfidence the minimum confidence for a label to be returned in percent
-     *
      * @return String containing the result of the request.
      */
     @Override
@@ -62,7 +62,6 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
      * @param objectBytes   the bytes of the image 64 encoded
      * @param maxLabels     the maximum number of labels to return
      * @param minConfidence the minimum confidence for a label to be returned in percent
-     *
      * @return String containing the result of the request.
      */
     @Override
