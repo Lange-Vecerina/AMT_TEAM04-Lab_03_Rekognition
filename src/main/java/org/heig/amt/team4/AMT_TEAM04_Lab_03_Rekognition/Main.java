@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String bucketPath = "amt.team04.diduno.education/test/filebis";
-        String imageFromDiskPath = "D:\\cars.jpg";
+        String imageFromDiskPath = "C:\\Users\\ylang\\OneDrive\\Bureau";
         AwsCloudClient client = AwsCloudClient.getInstance();
 
         System.out.println("=== Generating Link ===");
