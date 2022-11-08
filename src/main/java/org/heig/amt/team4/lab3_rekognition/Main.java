@@ -1,33 +1,35 @@
 package org.heig.amt.team4.lab3_rekognition;
 
-import org.apache.commons.io.FileUtils;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
-
-import java.io.File;
-import java.io.IOException;
+import software.amazon.ion.Timestamp;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        // take the first argument as the image path
+        String imagePath = args[0];
 
-        String bucketPath = "amt.team04.diduno.education/test/filebis";
-        String imageFromDiskPath = "src/main/resources/cars.jpg";
+        // Make a string constant of current date and time
+        String date = Timestamp.now().toString();
+        String bucketPath = "amt.team04.diduno.education/" + date + "/";
+
+        // Instantiate the AWS cloud client
         AwsCloudClient client = AwsCloudClient.getInstance();
 
-        System.out.println("=== Generating Link ===");
-        String link = client.dataObjectHelper().publish(bucketPath);
-        System.out.println(link);
+        // Upload the image to the bucket
+        client.dataObjectHelper().create(bucketPath + "image.jpg", imagePath);
 
-        client.dataObjectHelper().create(bucketPath, imageFromDiskPath);
-        System.out.println("=== Analyzing image ===");
-        client.labelDetector().analyze(imageFromDiskPath, 1, 80);
-        byte[] fileContent = FileUtils.readFileToByteArray(new File(imageFromDiskPath));
+        // Generate a link to the image and print it
+        String link = client.dataObjectHelper().publish(bucketPath + "image.jpg");
+        System.out.println("Link to the image: " + link);
 
-        System.out.println("=== Analyzing byte array ===");
-        String response = client.labelDetector().analyze(fileContent, 1, 80);
-        byte[] byteArray = response.getBytes();
+        // Get the labels of the image
+        String labels = client.labelDetector().analyze(args[0], 10, 60f);
 
-        System.out.println("=== Storing result into S3 ===");
-        client.dataObjectHelper().create(bucketPath, byteArray);
+        // Put the labels in a new file and upload it to the bucket
+        client.dataObjectHelper().create(bucketPath + "labels.txt", labels.getBytes());
 
+        // Generate a link to the labels and print it
+        link = client.dataObjectHelper().publish(bucketPath + "labels.txt");
+        System.out.println("Link to the labels: " + link);
     }
 }

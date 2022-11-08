@@ -18,7 +18,7 @@ public interface ILabelDetector {
      * @param minConfidence the minimum confidence for a label to be returned in percent
      * @return String containing the result of the request.
      */
-    String analyze(String objectUri, int maxLabels, int minConfidence);
+    String analyze(String objectUri, int maxLabels, float minConfidence);
 
     /**
      * Detects labels in an image.
@@ -28,5 +28,5 @@ public interface ILabelDetector {
      * @param minConfidence the minimum confidence for a label to be returned in percent
      * @return String containing the result of the request.
      */
-    String analyze(byte[] objectBytes, int maxLabels, int minConfidence);
+    String analyze(byte[] objectBytes, int maxLabels, float minConfidence);
 }
