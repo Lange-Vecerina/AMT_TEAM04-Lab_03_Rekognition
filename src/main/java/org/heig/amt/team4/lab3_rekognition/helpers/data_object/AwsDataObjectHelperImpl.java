@@ -1,4 +1,4 @@
-package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.data_object;
+package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;

@@ -1,7 +1,7 @@
-package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition;
+package org.heig.amt.team4.lab3_rekognition;
 
 import org.apache.commons.io.FileUtils;
-import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.client.AwsCloudClient;
+import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String bucketPath = "amt.team04.diduno.education/test/filebis";
-        String imageFromDiskPath = "C:\\Users\\ylang\\OneDrive\\Bureau";
+        String imageFromDiskPath = "D:\\cars.jpg";
         AwsCloudClient client = AwsCloudClient.getInstance();
 
         System.out.println("=== Generating Link ===");
