@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.heig.amt.team4.lab3_rekognition"},{"l":"org.heig.amt.team4.lab3_rekognition.client"},{"l":"org.heig.amt.team4.lab3_rekognition.helpers.data_object"},{"l":"org.heig.amt.team4.lab3_rekognition.helpers.label_detecor"}]
