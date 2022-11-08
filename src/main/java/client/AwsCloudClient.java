@@ -1,5 +1,7 @@
 package client;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.rekognition.AmazonRekognition;
@@ -10,6 +12,12 @@ import helpers.data_object.AwsDataObjectHelperImpl;
 import helpers.data_object.IDataObjectHelper;
 import helpers.label_detecor.AwsLabelDetectorHelperImpl;
 import helpers.label_detecor.ILabelDetector;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.rekognition.RekognitionClient;
+import software.amazon.awssdk.services.rekognition.RekognitionClientBuilder;
 
 
 /**
@@ -31,14 +39,16 @@ public class AwsCloudClient implements ICloudClient {
      * Private constructor for the singleton class
      */
     private AwsCloudClient() {
+        
+
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new EnvironmentVariableCredentialsProvider())
                 .withRegion(Regions.EU_WEST_2)
                 .build();
 
-        AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.standard()
-                .withCredentials(new EnvironmentVariableCredentialsProvider())
-                .withRegion(Regions.EU_WEST_2)
+        RekognitionClient rekognitionClient = RekognitionClient.builder()
+                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(System.getenv("AWS_ACCESS_KEY_ID"), System.getenv("AWS_SECRET_KEY"))))
+                .region(Region.EU_WEST_2)
                 .build();
 
         dataObjectHelper = new AwsDataObjectHelperImpl(s3Client);

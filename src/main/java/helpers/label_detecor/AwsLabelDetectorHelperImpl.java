@@ -1,21 +1,22 @@
 package helpers.label_detecor;
 
 
-import com.amazonaws.services.rekognition.AmazonRekognition;
 import software.amazon.awssdk.core.SdkBytes;
-import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
-import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
-import software.amazon.awssdk.services.rekognition.model.Image;
+import software.amazon.awssdk.services.rekognition.RekognitionClient;
+import software.amazon.awssdk.services.rekognition.model.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AwsLabelDetectorHelperImpl implements ILabelDetector {
-    private final AmazonRekognition client;
+    private final RekognitionClient client;
 
-    public AwsLabelDetectorHelperImpl(AmazonRekognition rekognitionClient) {
+    public AwsLabelDetectorHelperImpl(RekognitionClient rekognitionClient) {
         client = rekognitionClient;
     }
 
@@ -66,8 +67,41 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
      * @param minConfidence the minimum confidence for a label to be returned in percent
      */
     @Override
-    public void analyze(Byte[] objectBytes, int maxLabels, int minConfidence) {
-        // TODO document why this method is empty
+    public Map<String, String> analyze(byte[] objectBytes, int maxLabels, int minConfidence) {
+
+        try {
+            InputStream sourceStream = new ByteArrayInputStream(objectBytes);
+            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+
+            // Create an Image object for the source image.
+            Image souImage = Image.builder()
+                    .bytes(sourceBytes)
+                    .build();
+
+            DetectLabelsRequest detectLabelsRequest = DetectLabelsRequest.builder()
+                    .image(souImage)
+                    .maxLabels(maxLabels)
+                    .minConfidence((float) minConfidence)
+                    .build();
+
+            DetectLabelsResponse labelsResponse = client.detectLabels(detectLabelsRequest);
+            List<Label> labels = labelsResponse.labels();
+            System.out.println("Detected labels for the given photo");
+            Map<String, String> result = new HashMap<>();
+            for (Label label : labels) {
+                result.put(label.name(), label.confidence().toString());
+                System.out.println(label.name() + ": " + label.confidence().toString());
+            }
+            //System.out.println(labelsResponse);
+            //return labels;
+            return result;
+
+        } catch (RekognitionException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+
+        return null;
     }
 
     /**public static void detectImageLabels(RekognitionClient rekClient, String sourceImage, int nbOfLabels, double minConfidence) {

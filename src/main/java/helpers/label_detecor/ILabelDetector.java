@@ -1,5 +1,11 @@
 package helpers.label_detecor;
 
+import java.awt.*;
+import software.amazon.awssdk.services.rekognition.model.*;
+import software.amazon.awssdk.services.rekognition.model.Label;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Interface for label detector helpers.
  *
@@ -25,5 +31,5 @@ public interface ILabelDetector {
      * @param maxLabels     the maximum number of labels to return
      * @param minConfidence the minimum confidence for a label to be returned in percent
      */
-    void analyze(Byte[] objectBytes, int maxLabels, int minConfidence);
+    Map<String, String> analyze(byte[] objectBytes, int maxLabels, int minConfidence);
 }
