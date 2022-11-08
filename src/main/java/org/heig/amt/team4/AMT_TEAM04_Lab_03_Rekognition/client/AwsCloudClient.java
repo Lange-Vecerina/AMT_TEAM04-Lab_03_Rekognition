@@ -1,13 +1,13 @@
-package org.heig.amt.team4.client;
+package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.client;
 
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.heig.amt.team4.helpers.data_object.AwsDataObjectHelperImpl;
-import org.heig.amt.team4.helpers.data_object.IDataObjectHelper;
-import org.heig.amt.team4.helpers.label_detecor.AwsLabelDetectorHelperImpl;
-import org.heig.amt.team4.helpers.label_detecor.ILabelDetector;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.data_object.IDataObjectHelper;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.label_detecor.AwsLabelDetectorHelperImpl;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.label_detecor.ILabelDetector;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.data_object.AwsDataObjectHelperImpl;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;

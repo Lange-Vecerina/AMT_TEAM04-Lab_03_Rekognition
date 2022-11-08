@@ -1,7 +1,7 @@
-package org.heig.amt.team4.client;
+package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.client;
 
-import org.heig.amt.team4.helpers.data_object.IDataObjectHelper;
-import org.heig.amt.team4.helpers.label_detecor.ILabelDetector;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.data_object.IDataObjectHelper;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.label_detecor.ILabelDetector;
 
 /**
  * Interface for the cloud org.heig.amt.team4.client

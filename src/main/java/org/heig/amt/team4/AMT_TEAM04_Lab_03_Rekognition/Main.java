@@ -1,7 +1,7 @@
-package org.heig.amt.team4;
+package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition;
 
 import org.apache.commons.io.FileUtils;
-import org.heig.amt.team4.client.AwsCloudClient;
+import org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.client.AwsCloudClient;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.heig.amt.team4.helpers.label_detecor;
+package org.heig.amt.team4.AMT_TEAM04_Lab_03_Rekognition.helpers.label_detecor;
 
 
 /**
