@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String bucketPath = "amt.team04.diduno.education/test/filebis";
-        String imageFromDiskPath = "D:\\cars.jpg";
+        String imageFromDiskPath = "src/main/resources/cars.jpg";
         AwsCloudClient client = AwsCloudClient.getInstance();
 
         System.out.println("=== Generating Link ===");
@@ -19,11 +19,11 @@ public class Main {
 
         client.dataObjectHelper().create(bucketPath, imageFromDiskPath);
         System.out.println("=== Analyzing image ===");
-        client.labelDetector().analyze(imageFromDiskPath, 10, 80);
+        client.labelDetector().analyze(imageFromDiskPath, 1, 80);
         byte[] fileContent = FileUtils.readFileToByteArray(new File(imageFromDiskPath));
 
         System.out.println("=== Analyzing byte array ===");
-        String response = client.labelDetector().analyze(fileContent, 3, 80);
+        String response = client.labelDetector().analyze(fileContent, 1, 80);
         byte[] byteArray = response.getBytes();
 
         System.out.println("=== Storing result into S3 ===");
