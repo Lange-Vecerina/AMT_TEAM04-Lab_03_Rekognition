@@ -1,11 +1,7 @@
 package client;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.rekognition.AmazonRekognition;
-import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import helpers.data_object.AwsDataObjectHelperImpl;
@@ -13,11 +9,9 @@ import helpers.data_object.IDataObjectHelper;
 import helpers.label_detecor.AwsLabelDetectorHelperImpl;
 import helpers.label_detecor.ILabelDetector;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.RekognitionClientBuilder;
 
 
 /**
