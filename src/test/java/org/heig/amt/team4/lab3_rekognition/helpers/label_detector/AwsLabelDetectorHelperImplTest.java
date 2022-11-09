@@ -18,24 +18,22 @@ class AwsLabelDetectorHelperImplTest {
     @Test
     void detectLabels() throws IOException {
         // Get the image from the resources
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("cars.jpg")).getFile());
+        File file = new File("src/test/resources/cars.jpg");
 
         // Check if the image contains the "car" label
         String result = labelDetectorHelper.analyze(file.getPath(), 4, 50f);
-        assertTrue(result.contains("car"));
+        assertTrue(result.contains("Car"));
     }
 
     // Test the analysis method of the label detector helper using the "cars.jpg" as byte[]
     @Test
     void detectLabelsFromByteArray() throws IOException {
         // Get the image from the resources
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("cars.jpg")).getFile());
+        File file = new File("src/test/resources/cars.jpg");
 
         // Check if the image contains the "car" label
         String result = labelDetectorHelper.analyze(Files.readAllBytes(file.toPath()), 4, 50f);
-        assertTrue(result.contains("car"));
+        assertTrue(result.contains("Car"));
     }
 
 }
