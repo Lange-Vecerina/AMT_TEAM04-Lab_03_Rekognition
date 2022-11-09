@@ -37,7 +37,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
      * @param bucketName the name of the bucket
      * @return true if the bucket exists, false otherwise
      */
-    private boolean bucketMissing(String bucketName) {
+    public boolean bucketMissing(String bucketName) {
         return !client.doesBucketExistV2(bucketName);
     }
 
@@ -48,7 +48,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
      * @param objectName the name of the object
      * @return true if the object exists, false otherwise
      */
-    private boolean objectExists(String bucketName, String objectName) {
+    public boolean objectExists(String bucketName, String objectName) {
         return client.doesObjectExist(bucketName, objectName);
     }
 
