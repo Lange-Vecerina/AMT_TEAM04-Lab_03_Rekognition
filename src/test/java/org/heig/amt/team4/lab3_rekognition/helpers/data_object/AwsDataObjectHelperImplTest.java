@@ -16,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AwsDataObjectHelperImplTest {
     private static String bucketPath;
+    private static String folderPath;
     private static final AwsDataObjectHelperImpl dataObjectHelper = (AwsDataObjectHelperImpl) AwsCloudClient.getInstance().dataObjectHelper();
 
     @BeforeAll
     public static void setUp() {
-        bucketPath = "amt.team04.diduno.education/test/";
+        bucketPath = "amt.team04.diduno.education";
+        folderPath = "/test/";
     }
 
     @AfterAll
@@ -43,13 +45,13 @@ public class AwsDataObjectHelperImplTest {
         File file = new File(Objects.requireNonNull(classLoader.getResource("cars.jpg")).getFile());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image1.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image1.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image1.jpg", file.getPath());
+        dataObjectHelper.create(bucketPath + folderPath +"image1.jpg", file.getPath());
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image1.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image1.jpg"));
     }
 
     // Test the creation of a data object using the "cars.jpg" image from the resources as byte[]
@@ -61,16 +63,16 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image2.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath+ "image2.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image2.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image2.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image2.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image2.jpg"));
 
         // Check if the created object matches the original image
-        assertArrayEquals(image, dataObjectHelper.read(bucketPath + "image2.jpg"));
+        assertArrayEquals(image, dataObjectHelper.read(bucketPath + folderPath + "image2.jpg"));
     }
 
     // Test the update of a data object using the "trees.jpg" image from the resources
@@ -81,25 +83,25 @@ public class AwsDataObjectHelperImplTest {
         File file = new File(classLoader.getResource("trees.jpg").getFile());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image3.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath,folderPath + "image3.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image3.jpg", file.getPath());
+        dataObjectHelper.create(bucketPath + folderPath + "image3.jpg", file.getPath());
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image3.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image3.jpg"));
 
         // Get the image from the resources
         file = new File(classLoader.getResource("cars.jpg").getFile());
 
         // Update the data object from the image
-        dataObjectHelper.update(bucketPath + "image3.jpg", file.getPath());
+        dataObjectHelper.update(bucketPath + folderPath + "image3.jpg", file.getPath());
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image3.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image3.jpg"));
 
         // Check if the created object matches the original image
-        assertArrayEquals(Files.readAllBytes(file.toPath()), dataObjectHelper.read(bucketPath + "image3.jpg"));
+        assertArrayEquals(Files.readAllBytes(file.toPath()), dataObjectHelper.read(bucketPath + folderPath + "image3.jpg"));
     }
 
     // Test the update of a data object using the "trees.jpg" image from the resources as byte[]
@@ -111,26 +113,26 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image4.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image4.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image4.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image4.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image4.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image4.jpg"));
 
         // Get the image from the resources
         file = new File(classLoader.getResource("cars.jpg").getFile());
         image = Files.readAllBytes(file.toPath());
 
         // Update the data object from the image
-        dataObjectHelper.update(bucketPath + "image4.jpg", image);
+        dataObjectHelper.update(bucketPath + folderPath + "image4.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image4.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image4.jpg"));
 
         // Check if the created object matches the original image
-        assertArrayEquals(image, dataObjectHelper.read(bucketPath + "image4.jpg"));
+        assertArrayEquals(image, dataObjectHelper.read(bucketPath + folderPath + "image4.jpg"));
     }
 
     // Test the read of a data object without specifying a destination path
@@ -142,16 +144,16 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image5.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image5.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image5.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image5.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image5.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image5.jpg"));
 
         // Check if the created object matches the original image
-        assertArrayEquals(image, dataObjectHelper.read(bucketPath + "image5.jpg"));
+        assertArrayEquals(image, dataObjectHelper.read(bucketPath + folderPath + "image5.jpg"));
     }
 
     // Test the read of a data object specifying the resource folder as a destination path
@@ -163,16 +165,16 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image6.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image6.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image6.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image6.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image6.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image6.jpg"));
 
         // Read the data object to the resource folder
-        dataObjectHelper.read(bucketPath + "image6.jpg", "src/test/resources");
+        dataObjectHelper.read(bucketPath + folderPath + "image6.jpg", "src/test/resources");
 
         // Check if the created object matches the original image
         assertArrayEquals(image, Files.readAllBytes(new File("src/test/resources/image6.jpg").toPath()));
@@ -187,16 +189,16 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image7.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image7.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image7.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image7.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image7.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image7.jpg"));
 
         // Get the public access URL
-        String url = dataObjectHelper.publish(bucketPath + "image7.jpg");
+        String url = dataObjectHelper.publish(bucketPath + folderPath + "image7.jpg");
 
         // Check if the URL is not null
         assertNotNull(url);
@@ -214,18 +216,18 @@ public class AwsDataObjectHelperImplTest {
         byte[] image = Files.readAllBytes(file.toPath());
 
         // Check that the object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image8.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image8.jpg"));
 
         // Create a data object from the image
-        dataObjectHelper.create(bucketPath + "image8.jpg", image);
+        dataObjectHelper.create(bucketPath + folderPath + "image8.jpg", image);
 
         // Check if the data object exists
-        assertTrue(dataObjectHelper.objectExists(bucketPath, "image8.jpg"));
+        assertTrue(dataObjectHelper.objectExists(bucketPath, folderPath + "image8.jpg"));
 
         // Delete the data object
-        dataObjectHelper.delete(bucketPath + "image8.jpg");
+        dataObjectHelper.delete(bucketPath + folderPath + "image8.jpg");
 
         // Check if the data object does not exist
-        assertFalse(dataObjectHelper.objectExists(bucketPath, "image8.jpg"));
+        assertFalse(dataObjectHelper.objectExists(bucketPath, folderPath + "image8.jpg"));
     }
 }
