@@ -41,7 +41,9 @@ Download the latest **.jar** release on the **Release** section in this github r
 
 Open a *cmd/terminal* and go the directory where you saved your downloaded **.jar**.
 
-To run the program enter the following command : ```java -jar lab3_rekognition-v1-shaded.jar "<your_path_of_the_image_you_want_to_label>"```
+To run the program enter the following command : 
+
+```java -jar lab3_rekognition-v1-shaded.jar "<your_path_of_the_image_you_want_to_label>"```
 
 
 ## Run the tests
