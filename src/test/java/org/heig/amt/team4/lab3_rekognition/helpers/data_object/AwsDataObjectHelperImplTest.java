@@ -31,7 +31,7 @@ public class AwsDataObjectHelperImplTest {
     public static void tearDown() {
         // delete images 1 to 6 from the bucket
         for (int i = 1; i <= 7; i++) {
-            dataObjectHelper.delete(bucketPath + "image" + i + ".jpg");
+            dataObjectHelper.delete(bucketPath + folderPath + "image" + i + ".jpg");
         }
 
         // delete the "image6.jpg" file in the resources folder
