@@ -59,7 +59,7 @@ This will generate 2 temporary links to the bucket :
 * The second links to the result of the labeling (in the bucket too).
 
 
-### On AWS instance (for review purpose)
+### Run on AWS instance (for review purpose)
 
 Once connected to our instance through ssh. You will find our **.jar** file and a car image in the ```/home/admin/test``` folder.
 In there you can run our app like above :
