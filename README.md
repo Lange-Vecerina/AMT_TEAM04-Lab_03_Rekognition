@@ -11,7 +11,11 @@ Welcome to AMT 2022 Project Rekognition.
 The following repository contains a custom API for labels detection.
 The API will be easily adapted to different cloud Services in the future without impacting the user experience
 (Amazon Rekogntion, Cloud Vision, Azure...). At this point it runs with Amazon Rekognition.
-## Get the dependencies
+
+At this point our application can be run on a terminal by passing the path of the image you wish the get the labels 
+from.
+
+## Dependencies
 
 The following prerequisite are necessary to use the project.
 
@@ -45,6 +49,7 @@ To run the program enter the following command :
 
 ```java -jar lab3_rekognition-v1-shaded.jar "<your_path_of_the_image_you_want_to_label>"```
 
+For more information on how to generate the **.jar** file on a development enviroment see WIKI
 
 ## Run the tests
 
