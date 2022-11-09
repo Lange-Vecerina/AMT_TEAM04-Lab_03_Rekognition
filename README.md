@@ -58,7 +58,6 @@ This will generate 2 temporary links to the bucket :
 * The first links to the bucket where the image you asked to be labeled by Amazon Rekognition is.
 * The second links to the result of the labeling (in the bucket too).
 
-For more information on how to generate the **.jar** file on a development enviroment see WIKI
 
 ## Run the tests
 
