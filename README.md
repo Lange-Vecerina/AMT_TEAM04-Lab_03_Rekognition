@@ -49,7 +49,7 @@ To run the program enter the following command :
 
 ```java -jar lab3_rekognition-v1-shaded.jar "<your_path_of_the_image_you_want_to_label>"```
 
-Example of a **fruits.jpg** image in *D:/image/* folder :
+Example of a **fruits.jpg** image in ```D:/image/``` folder :
 
 ```java -jar lab3_rekognition-v1-shaded.jar "D:/image/fruits.jpg"```
 
