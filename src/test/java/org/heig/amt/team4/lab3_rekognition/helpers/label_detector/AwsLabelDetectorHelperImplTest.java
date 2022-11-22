@@ -12,9 +12,16 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AwsLabelDetectorHelperImplTest {
-    private static final AwsLabelDetectorHelperImpl labelDetectorHelper = (AwsLabelDetectorHelperImpl) AwsCloudClient.getInstance().labelDetector();
+    private static final AwsLabelDetectorHelperImpl labelDetectorHelper = (AwsLabelDetectorHelperImpl) AwsCloudClient
+            .getInstance().labelDetector();
 
-    // Test the analysis method of the label detector helper using the "cars.jpg" as path
+    // TODO Given-When-Then-ifiez vos tests (utilisez une approche BDD)
+
+    // TODO pas de tests concernant la labélisation d'une image sur un S3 (pas
+    // implémenté non plus)
+
+    // Test the analysis method of the label detector helper using the "cars.jpg" as
+    // path
     @Test
     void detectLabels() throws IOException {
         // Get the image from the resources
@@ -25,7 +32,8 @@ class AwsLabelDetectorHelperImplTest {
         assertTrue(result.contains("Car"));
     }
 
-    // Test the analysis method of the label detector helper using the "cars.jpg" as byte[]
+    // Test the analysis method of the label detector helper using the "cars.jpg" as
+    // byte[]
     @Test
     void detectLabelsFromByteArray() throws IOException {
         // Get the image from the resources

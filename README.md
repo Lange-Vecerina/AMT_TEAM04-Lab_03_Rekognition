@@ -24,6 +24,8 @@ The following prerequisite are necessary to use the project.
 * AWS CLI
 * A S3 bucket and AWS credentials
 
+> TODO ajouter les commandes pour récupérer les dépendances
+
 ## Adapt personal settings
 
 To run the application with your own AWS credentials you need to add the following credentials as environnement path of 
@@ -35,9 +37,16 @@ Variable : **AWS_SECRET_KEY** Value : **<your_aws_secret_key>**
 
 Example how to set environment variable on windows :
 https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/creating-and-modifying-environment-variables-on-windows.html#GUID-DD6F9982-60D5-48F6-8270-A27EC53807D0
+
+> TODO ajouter les commandes pour compiler, ainsi que quelque explications sur comment et pourquoi vous utilisez Maven 
+
+> TODO ajouter la commande sur comment lancer un ou tout les tests 
+
+
 ## Run the Project on your machine
 
 Now that you have set up your AWS credentials you can run the application.
+
 
 ### Run on your machine
 
@@ -67,6 +76,8 @@ In there you can run our app like above :
 ```java -jar lab3_rekognition-v1-shaded.jar "cars.jpg"```
 
 ## Run the tests
+
+// TODO todo
 
 [WIP]
 

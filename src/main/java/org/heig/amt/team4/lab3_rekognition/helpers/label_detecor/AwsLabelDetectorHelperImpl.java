@@ -17,11 +17,14 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
         client = rekognitionClient;
     }
 
+    // TODO s3 ?
+
     /**
      * get the labels list of the image
      *
      * @param maxLabels     the maximum number of labels to return
-     * @param minConfidence the minimum confidence for a label to be returned in percent
+     * @param minConfidence the minimum confidence for a label to be returned in
+     *                      percent
      * @param sourceStream  the stream of the image
      * @return the labels list
      */
@@ -49,7 +52,8 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
      *
      * @param objectUri     the uri of the image
      * @param maxLabels     the maximum number of labels to return
-     * @param minConfidence the minimum confidence for a label to be returned in percent
+     * @param minConfidence the minimum confidence for a label to be returned in
+     *                      percent
      * @return String containing the result of the request.
      */
     @Override
@@ -68,7 +72,8 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
      *
      * @param objectBytes   the bytes of the image 64 encoded
      * @param maxLabels     the maximum number of labels to return
-     * @param minConfidence the minimum confidence for a label to be returned in percent
+     * @param minConfidence the minimum confidence for a label to be returned in
+     *                      percent
      * @return String containing the result of the request.
      */
     @Override
