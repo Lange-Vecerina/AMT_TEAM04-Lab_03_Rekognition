@@ -37,6 +37,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
      * @param bucketName the name of the bucket
      * @return true if the bucket exists, false otherwise
      */
+    //TODO REVIEW Remove all buckets references from public methods
     public boolean bucketMissing(String bucketName) {
         return !client.doesBucketExistV2(bucketName);
     }
@@ -149,6 +150,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
             try {
                 Files.copy(s3Object.getObjectContent(), Path.of(destinationUri));
             } catch (Exception e) {
+                //TODO REVIEW Filter only specific error concerning this helper
                 throw new RejectedExecutionException("Error reading object from S3", e);
             }
         }
