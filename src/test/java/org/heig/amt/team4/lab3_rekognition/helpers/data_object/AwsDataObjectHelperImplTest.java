@@ -1,5 +1,7 @@
 package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 
+//TODO REVIEW Refactor methods in a business way (Get Object, Download Object)
+//TODO REVIEW Remove unused import statements
 import org.apache.commons.io.IOUtils;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 import org.junit.jupiter.api.AfterAll;
@@ -33,6 +35,7 @@ public class AwsDataObjectHelperImplTest {
 
     @AfterAll
     public static void tearDown() {
+        //TODO REVIEW Test before action to avoid -self generated- exception
         // delete images 1 to 6 from the bucket
         for (int i = 1; i <= 7; i++) {
             dataObjectHelper.delete(bucketPath + folderPath + "image" + i + ".jpg");
@@ -59,6 +62,7 @@ public class AwsDataObjectHelperImplTest {
         assertTrue(dataObjectHelper.objectExists(bucketPath, folderPathForAssert + "image1.jpg"));
     }
 
+    //TODO REVIEW BDD Annotation
     // Test the creation of a data object using the "cars.jpg" image from the resources as byte[]
     @Test
     void createFromByteArray() throws IOException {
