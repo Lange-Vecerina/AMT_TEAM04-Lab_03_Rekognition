@@ -1,19 +1,13 @@
 package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 
 //TODO REVIEW Refactor methods in a business way (Get Object, Download Object)
-//TODO REVIEW Remove unused import statements
-import org.apache.commons.io.IOUtils;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AwsDataObjectHelperImplTest {

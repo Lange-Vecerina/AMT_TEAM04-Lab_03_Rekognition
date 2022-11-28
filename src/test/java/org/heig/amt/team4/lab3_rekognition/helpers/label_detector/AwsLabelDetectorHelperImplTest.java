@@ -3,11 +3,9 @@ package org.heig.amt.team4.lab3_rekognition.helpers.label_detector;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 import org.heig.amt.team4.lab3_rekognition.helpers.label_detecor.AwsLabelDetectorHelperImpl;
 import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

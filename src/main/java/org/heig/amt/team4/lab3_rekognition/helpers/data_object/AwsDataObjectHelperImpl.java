@@ -3,7 +3,6 @@ package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,25 +31,24 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
     }
 
     /**
-     * Checks if the bucket exists
+     * Checks if the root Object exists
      *
-     * @param bucketName the name of the bucket
-     * @return true if the bucket exists, false otherwise
+     * @param rootObjectName the name of the root Object
+     * @return true if the root Object exists, false otherwise
      */
-    //TODO REVIEW Remove all buckets references from public methods
-    public boolean bucketMissing(String bucketName) {
-        return !client.doesBucketExistV2(bucketName);
+    public boolean rootObjectMissing(String rootObjectName) {
+        return !client.doesBucketExistV2(rootObjectName);
     }
 
     /**
-     * Checks if an object exists in a bucket
+     * Checks if an object exists in a root Object
      *
-     * @param bucketName the name of the bucket
+     * @param rootObjectName the name of the root Object
      * @param objectName the name of the object
      * @return true if the object exists, false otherwise
      */
-    public boolean objectExists(String bucketName, String objectName) {
-        return client.doesObjectExist(bucketName, objectName);
+    public boolean objectExists(String rootObjectName, String objectName) {
+        return client.doesObjectExist(rootObjectName, objectName);
     }
 
     /**
@@ -59,8 +57,8 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
      * @param objectName the url of the object
      */
     @Override
-    public void create(String objectName) {// create the bucket if it doesn't exist
-        if (bucketMissing(objectName)) {
+    public void create(String objectName) {// create the root Object if it doesn't exist
+        if (rootObjectMissing(objectName)) {
             client.createBucket(objectName);
         }
     }
@@ -76,12 +74,12 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // create the bucket if it doesn't exist
-        if (bucketMissing(objectUrlParts[0])) {
+        // create the root object if it doesn't exist
+        if (rootObjectMissing(objectUrlParts[0])) {
             client.createBucket(objectUrlParts[0]);
         }
 
-        // create the object in the bucket if it doesn't exist
+        // create the object in the root object if it doesn't exist
         if (!objectExists(objectUrlParts[0], objectUrlParts[1])) {
             client.putObject(objectUrlParts[0], objectUrlParts[1], new File(srcFilePath));
         }
@@ -98,12 +96,13 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // create the bucket if it doesn't exist
-        if (bucketMissing(objectUrlParts[0])) {
+        // create the root Object if it doesn't exist
+        if (rootObjectMissing(objectUrlParts[0])) {
+
             client.createBucket(objectUrlParts[0]);
         }
 
-        // create the object in the bucket if it doesn't exist
+        // create the object in the root Object if it doesn't exist
         if (!objectExists(objectUrlParts[0], objectUrlParts[1])) {
             client.putObject(objectUrlParts[0], objectUrlParts[1], new String(contentBytes));
         }
@@ -120,7 +119,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // download the object from the bucket
+        // download the object from the rootObject
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
             S3Object s3Object = client.getObject(objectUrlParts[0], objectUrlParts[1]);
             try {
@@ -143,9 +142,9 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // download the object from the bucket
+        // download the object from the root Object
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
-            // download the object from the bucket to the destinationUri
+            // download the object from the root Object to the destinationUri
             S3Object s3Object = client.getObject(objectUrlParts[0], objectUrlParts[1]);
             try {
                 Files.copy(s3Object.getObjectContent(), Path.of(destinationUri));
@@ -167,7 +166,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // update the object in the bucket if it exists
+        // update the object in the rootObject if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
             client.putObject(objectUrlParts[0], objectUrlParts[1], new File(srcFilePath));
         }
@@ -184,7 +183,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // update the object in the bucket if it exists
+        // update the object in the root Object if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
             client.putObject(objectUrlParts[0], objectUrlParts[1], new String(contentBytes));
         }
@@ -200,7 +199,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // delete the object from the bucket if it exists
+        // delete the object from the root Object if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
             client.deleteObject(objectUrlParts[0], objectUrlParts[1]);
         }
@@ -217,7 +216,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
-        // create a link to the object in the bucket if it exists
+        // create a link to the object in the root Object if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
             return client.generatePresignedUrl(objectUrlParts[0], objectUrlParts[1], java.util.Date.from(java.time.Instant.now().plusSeconds(3600))).toString();
         }
