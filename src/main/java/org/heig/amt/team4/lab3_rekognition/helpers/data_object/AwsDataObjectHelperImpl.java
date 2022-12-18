@@ -6,6 +6,9 @@ import com.amazonaws.util.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.RejectedExecutionException;
@@ -71,7 +74,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
      * @param srcFilePath the path of the source file
      */
     @Override
-    public void create(String objectUrl, String srcFilePath) {
+    public void create(String objectUrl, String srcFilePath) throws IOException {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
@@ -82,7 +85,19 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
 
         // create the object in the bucket if it doesn't exist
         if (!objectExists(objectUrlParts[0], objectUrlParts[1])) {
-            client.putObject(objectUrlParts[0], objectUrlParts[1], new File(srcFilePath));
+
+            URL url = new URL(srcFilePath);
+            InputStream is = url.openStream();
+            String suffix = srcFilePath.substring(srcFilePath.lastIndexOf(".") + 1);
+            File tempFile = File.createTempFile("tempImg", "." + suffix);
+            OutputStream os = Files.newOutputStream(tempFile.toPath());
+
+            IOUtils.copy(is, os);
+            client.putObject(objectUrlParts[0], objectUrlParts[1], tempFile);
+
+            is.close();
+            os.close();
+            tempFile.delete();
         }
     }
 
@@ -104,7 +119,16 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
 
         // create the object in the bucket if it doesn't exist
         if (!objectExists(objectUrlParts[0], objectUrlParts[1])) {
-            client.putObject(objectUrlParts[0], objectUrlParts[1], new String(contentBytes));
+            //create a temporary file to store the content
+            Path tempFile = null;
+            try {
+                tempFile = Files.createTempFile("temp", ".tmp");
+                Files.write(tempFile, contentBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            client.putObject(objectUrlParts[0], objectUrlParts[1], tempFile.toFile());
         }
     }
 
@@ -128,7 +152,7 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
                 throw new RejectedExecutionException("Error reading object from S3", e);
             }
         }
-        return null;
+        return new byte[0];
     }
 
     /**
@@ -182,9 +206,19 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
         // split the objectUrl into root and path
         String[] objectUrlParts = objectUrl.split("/", 2);
 
+
         // update the object in the bucket if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
-            client.putObject(objectUrlParts[0], objectUrlParts[1], new String(contentBytes));
+
+            Path tempFile = null;
+            try {
+                tempFile = Files.createTempFile("temp", ".tmp");
+                Files.write(tempFile, contentBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            client.putObject(objectUrlParts[0], objectUrlParts[1], tempFile.toFile());
         }
     }
 

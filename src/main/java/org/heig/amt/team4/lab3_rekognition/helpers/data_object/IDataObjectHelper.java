@@ -1,5 +1,7 @@
 package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 
+import java.io.IOException;
+
 /**
  * Interface for data object org.heig.amt.team4.helpers.
  *
@@ -22,7 +24,7 @@ public interface IDataObjectHelper {
      * @param objectUrl   the url of the destination object
      * @param srcFilePath the path of the source file
      */
-    void create(String objectUrl, String srcFilePath);
+    void create(String objectUrl, String srcFilePath) throws IOException;
 
     /**
      * Creates an object in the cloud storage.

@@ -1,13 +1,13 @@
 package org.heig.amt.team4.lab3_rekognition.helpers.label_detecor;
 
+import com.amazonaws.util.IOUtils;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.List;
 
 public class AwsLabelDetectorHelperImpl implements ILabelDetector {
@@ -55,9 +55,20 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
     @Override
     public String analyze(String objectUri, int maxLabels, float minConfidence) {
         try {
-            InputStream sourceStream = new FileInputStream(objectUri);
-            return getLabels(maxLabels, minConfidence, sourceStream);
-        } catch (RekognitionException | FileNotFoundException e) {
+            URL url = new URL(objectUri);
+            InputStream is = url.openStream();
+            String suffix = objectUri.substring(objectUri.lastIndexOf(".") + 1);
+            File tempFile = File.createTempFile("tempImg", "." + suffix);
+            OutputStream os = Files.newOutputStream(tempFile.toPath());
+
+            IOUtils.copy(is, os);
+            is.close();
+            os.close();
+            InputStream sourceStream = new FileInputStream(tempFile);
+            var labels = getLabels(maxLabels, minConfidence, sourceStream);
+            tempFile.delete();
+            return labels;
+        } catch (RekognitionException | IOException e) {
             System.exit(1);
         }
         return null;
