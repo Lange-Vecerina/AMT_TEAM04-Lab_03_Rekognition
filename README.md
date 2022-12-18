@@ -24,7 +24,9 @@ The following prerequisite are necessary to use the project.
 * AWS CLI
 * A S3 bucket and AWS credentials
 
-> TODO ajouter les commandes pour récupérer les dépendances
+To get AWS and S3 dependencies, run the following command :
+
+```mvn install```
 
 ## Adapt personal settings
 
@@ -40,8 +42,13 @@ https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/cr
 
 > TODO ajouter les commandes pour compiler, ainsi que quelque explications sur comment et pourquoi vous utilisez Maven 
 
-> TODO ajouter la commande sur comment lancer un ou tout les tests 
+To compile the project, use the following command :
 
+```mvn compile```
+
+To generate a package use :
+
+```mvn package```
 
 ## Run the Project on your machine
 
@@ -77,7 +84,20 @@ In there you can run our app like above :
 
 ## Run the tests
 
-// TODO todo
+
+To run all the unit tests of the app use the following command :
+
+```mvn test```
+
+To run a specific unit test you'll need to specify the test class you want to launch with the path :
+
+Launch data Object test :
+
+```mvn test -Dtest="org.heig.amt.team4.lab3_rekognition.helpers.data_object.AwsDataObjectHelperImplTest"```
+
+Launch label detector :
+
+```mvn test -Dtest="org.heig.amt.team4.lab3_rekognition.helpers.label_detector.AwsLabelDetectorHelperImplTest"```
 
 [WIP]
 

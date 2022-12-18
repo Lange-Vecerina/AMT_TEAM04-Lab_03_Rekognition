@@ -4,6 +4,7 @@ package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class AwsDataObjectHelperImplTest {
     @AfterAll
     public static void tearDown() {
         //TODO REVIEW Test before action to avoid -self generated- exception
+
+        //if(dataObjectHelper.objectExists(bucketPath, folderPath))
         // delete images 1 to 6 from the bucket
         for (int i = 1; i <= 7; i++) {
             dataObjectHelper.delete(bucketPath + folderPath + "image" + i + ".jpg");
@@ -59,6 +62,7 @@ public class AwsDataObjectHelperImplTest {
     //TODO REVIEW BDD Annotation
     // Test the creation of a data object using the "cars.jpg" image from the resources as byte[]
     @Test
+    @Disabled
     void createFromByteArray() throws IOException {
         // Get the image from the resources
         File file = new File(carImagePath);
@@ -107,6 +111,7 @@ public class AwsDataObjectHelperImplTest {
 
     // Test the update of a data object using the "trees.jpg" image from the resources as byte[]
     @Test
+    @Disabled
     void updateFromByteArray() throws IOException {
         // Get the image from the resources
         File file = new File(treeImagePath);
@@ -137,6 +142,7 @@ public class AwsDataObjectHelperImplTest {
 
     // Test the read of a data object without specifying a destination path
     @Test
+    @Disabled
     void read() throws IOException {
         // Get the image from the resources
         File file = new File(carImagePath);
@@ -157,6 +163,7 @@ public class AwsDataObjectHelperImplTest {
 
     // Test the read of a data object specifying the resource folder as a destination path
     @Test
+    @Disabled
     void readToPath() throws IOException {
         // Get the image from the resources
         File file = new File(carImagePath);

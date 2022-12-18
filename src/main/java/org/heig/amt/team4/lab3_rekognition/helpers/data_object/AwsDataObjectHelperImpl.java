@@ -149,7 +149,6 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
             try {
                 Files.copy(s3Object.getObjectContent(), Path.of(destinationUri));
             } catch (IOException e) {
-                //TODO REVIEW Filter only specific error concerning this helper
                 throw new RejectedExecutionException("Error reading object from S3", e);
             }
         }
