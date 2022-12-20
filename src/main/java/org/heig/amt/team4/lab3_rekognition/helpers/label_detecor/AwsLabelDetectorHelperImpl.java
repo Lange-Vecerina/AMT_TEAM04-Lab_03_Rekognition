@@ -5,6 +5,7 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.*;
 
+import javax.net.ssl.SSLHandshakeException;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
@@ -57,18 +58,16 @@ public class AwsLabelDetectorHelperImpl implements ILabelDetector {
         try {
             URL url = new URL(objectUri);
             InputStream is = url.openStream();
-            String suffix = objectUri.substring(objectUri.lastIndexOf(".") + 1);
-            File tempFile = File.createTempFile("tempImg", "." + suffix);
-            OutputStream os = Files.newOutputStream(tempFile.toPath());
 
-            IOUtils.copy(is, os);
-            is.close();
-            os.close();
-            InputStream sourceStream = new FileInputStream(tempFile);
-            var labels = getLabels(maxLabels, minConfidence, sourceStream);
-            tempFile.delete();
+            var labels = getLabels(maxLabels, minConfidence, is);
             return labels;
-        } catch (RekognitionException | IOException e) {
+        } catch (RekognitionException e) {
+            System.exit(1);
+        } catch ( SSLHandshakeException e) {
+            System.out.println("SSLHandshakeException");
+            System.exit(1);
+        } catch (IOException e) {
+            System.out.println("IOException");
             System.exit(1);
         }
         return null;

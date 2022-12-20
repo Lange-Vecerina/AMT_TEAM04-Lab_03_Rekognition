@@ -3,10 +3,41 @@ package org.heig.amt.team4.lab3_rekognition;
 import org.heig.amt.team4.lab3_rekognition.client.AwsCloudClient;
 import software.amazon.ion.Timestamp;
 
+import javax.net.ssl.*;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            }
+
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
+            }
+        }
+        };
+
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = (hostname, session) -> true;
+
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
         // take the first argument as the image path
         String imagePath;
 
@@ -27,17 +58,17 @@ public class Main {
         AwsCloudClient client = AwsCloudClient.getInstance();
 
         // Upload the image to the bucket
-        client.dataObjectHelper().create(bucketPath + "image.txt", imagePath);
+        client.dataObjectHelper().create(bucketPath + "image", imagePath);
 
         // Generate a link to the image and print it
-        String link = client.dataObjectHelper().publish(bucketPath + "image.txt");
+        String link = client.dataObjectHelper().publish(bucketPath + "image");
         System.out.println("Link to the image: " + link);
 
         // Read the image from the bucket
         //byte[] imageBytesFromBucket = client.dataObjectHelper().read(bucketPath + "image.txt");
 
         // Get the labels of the image
-        String labels = client.labelDetector().analyze(imagePath, 10, 60f);
+        String labels = client.labelDetector().analyze(link, 10, 60f);
 
         // Put the labels in a new file and upload it to the bucket
         client.dataObjectHelper().create(bucketPath + "labels.txt", labels.getBytes());

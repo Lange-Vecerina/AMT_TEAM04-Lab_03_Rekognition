@@ -1,6 +1,8 @@
 package org.heig.amt.team4.lab3_rekognition.helpers.data_object;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
 
@@ -251,7 +253,14 @@ public class AwsDataObjectHelperImpl implements IDataObjectHelper {
 
         // create a link to the object in the bucket if it exists
         if (objectExists(objectUrlParts[0], objectUrlParts[1])) {
-            return client.generatePresignedUrl(objectUrlParts[0], objectUrlParts[1], java.util.Date.from(java.time.Instant.now().plusSeconds(3600))).toString();
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(objectUrlParts[0], objectUrlParts[1])
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(java.util.Date.from(java.time.Instant.now().plusSeconds(3600)));
+            URL url = client.generatePresignedUrl(generatePresignedUrlRequest);
+
+
+            return url.toString();
         }
         return null;
     }
